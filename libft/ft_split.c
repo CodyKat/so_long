@@ -6,11 +6,12 @@
 /*   By: jaemjeon <jaemjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 19:45:50 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/06 21:34:51 by jaemjeon         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:48:25 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 static int	ft_count_words(const char *s, char c)

@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_control2.c                                   :+:      :+:    :+:   */
+/*   enemy_control2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaemjeon <jaemjeon@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 11:25:50 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/16 11:30:48 by jaemjeon         ###   ########.fr       */
+/*   Created: 2022/07/01 21:44:29 by jaemjeon          #+#    #+#             */
+/*   Updated: 2022/07/01 21:46:35 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-void	render_map(t_game *game);
-
-int	enemy_swap(char *a, char *b)
+int	enemy_swap_and_process(char *a, char *b)
 {
 	char	tmp;
 
@@ -35,15 +33,16 @@ void	enemy_move1(int enemy_num, int way, t_game *game)
 	cur_y = game->enemy[enemy_num]->cur_y;
 	if (way == KEY_A)
 	{
-		if (!enemy_swap(&game->map[cur_y][cur_x], &game->map[cur_y][cur_x - 1]))
-			return ;
+		enemy_swap_and_process(\
+				&game->map[cur_y][cur_x], \
+				&game->map[cur_y][cur_x - 1]);
 		game->enemy[enemy_num]->cur_x--;
 	}
 	else if (way == KEY_S)
 	{
-		if (!enemy_swap(&game->map[cur_y][cur_x], \
-					&game->map[cur_y + 1][cur_x]))
-			return ;
+		enemy_swap_and_process(\
+				&game->map[cur_y][cur_x], \
+				&game->map[cur_y + 1][cur_x]);
 		game->enemy[enemy_num]->cur_y++;
 	}
 }
@@ -57,16 +56,16 @@ void	enemy_move2(int enemy_num, int way, t_game *game)
 	cur_y = game->enemy[enemy_num]->cur_y;
 	if (way == KEY_D)
 	{
-		if (!enemy_swap(&game->map[cur_y][cur_x], \
-					&game->map[cur_y][cur_x + 1]))
-			return ;
+		enemy_swap_and_process(\
+				&game->map[cur_y][cur_x], \
+				&game->map[cur_y][cur_x + 1]);
 		game->enemy[enemy_num]->cur_x++;
 	}
 	else if (way == KEY_W)
 	{
-		if (!enemy_swap(&game->map[cur_y][cur_x], \
-					&game->map[cur_y - 1][cur_x]))
-			return ;
+		enemy_swap_and_process(\
+				&game->map[cur_y][cur_x], \
+				&game->map[cur_y - 1][cur_x]);
 		game->enemy[enemy_num]->cur_y--;
 	}
 }
@@ -91,7 +90,7 @@ int	enemy_check_can_go(int enemy_num, int way, t_game *game)
 	else if (game->map[next_y][next_x] == 'C')
 		return (1);
 	else if (game->map[next_y][next_x] == 'O')
-		return (3);
+		return (-1);
 	else
 		return (0);
 }

@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjeon <jaemjeon@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: jaemjeon <jaemjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/15 17:06:52 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/17 06:42:34 by jaemjeon         ###   ########.fr       */
+/*   Created: 2022/07/01 21:45:37 by jaemjeon          #+#    #+#             */
+/*   Updated: 2022/07/07 14:39:13 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <mlx.h>
-
-char	*ft_itoa(int c);
-void	ft_error(void);
+#include "so_long_bonus.h"
 
 void	load_image(t_game *game)
 {
@@ -23,24 +19,23 @@ void	load_image(t_game *game)
 	int		h;
 
 	mlx = game->mlx;
-	game->enemy_cut[0] = mlx_xpm_file_to_image(mlx, "./src/slime0.xpm", &w, &h);
-	game->enemy_cut[1] = mlx_xpm_file_to_image(mlx, "./src/slime1.xpm", &w, &h);
-	game->enemy_cut[2] = mlx_xpm_file_to_image(mlx, "./src/slime2.xpm", &w, &h);
-	game->enemy_cut[3] = mlx_xpm_file_to_image(mlx, "./src/slime3.xpm", &w, &h);
-	game->enemy_cut[4] = mlx_xpm_file_to_image(mlx, "./src/slime4.xpm", &w, &h);
-	game->enemy_cut[5] = mlx_xpm_file_to_image(mlx, "./src/slime5.xpm", &w, &h);
-	game->path = mlx_xpm_file_to_image(mlx, "./src/path.xpm", &w, &h);
-	game->wall = mlx_xpm_file_to_image(mlx, "./src/wall.xpm", &w, &h);
-	game->coin = mlx_xpm_file_to_image(mlx, "./src/coin.xpm", &w, &h);
-	game->player = mlx_xpm_file_to_image(mlx, "./src/player.xpm", &w, &h);
-	game->exit = mlx_xpm_file_to_image(mlx, "./src/exit.xpm", &w, &h);
+	game->enemy_cut[0] = mlx_xpm_file_to_image(mlx, "./img/slime0.xpm", &w, &h);
+	game->enemy_cut[1] = mlx_xpm_file_to_image(mlx, "./img/slime1.xpm", &w, &h);
+	game->enemy_cut[2] = mlx_xpm_file_to_image(mlx, "./img/slime2.xpm", &w, &h);
+	game->enemy_cut[3] = mlx_xpm_file_to_image(mlx, "./img/slime3.xpm", &w, &h);
+	game->enemy_cut[4] = mlx_xpm_file_to_image(mlx, "./img/slime4.xpm", &w, &h);
+	game->enemy_cut[5] = mlx_xpm_file_to_image(mlx, "./img/slime5.xpm", &w, &h);
+	game->path = mlx_xpm_file_to_image(mlx, "./img/path.xpm", &w, &h);
+	game->wall = mlx_xpm_file_to_image(mlx, "./img/wall.xpm", &w, &h);
+	game->coin = mlx_xpm_file_to_image(mlx, "./img/coin.xpm", &w, &h);
+	game->player = mlx_xpm_file_to_image(mlx, "./img/player.xpm", &w, &h);
+	game->exit = mlx_xpm_file_to_image(mlx, "./img/exit.xpm", &w, &h);
 	game->size_w = w;
 	game->size_h = h;
 }
 
 void	put_img(t_game *game, int pos_x, int pos_y)
 {
-	//int		pos;
 	int		cordin_x;
 	int		cordin_y;
 	void	*mlx;
@@ -50,7 +45,6 @@ void	put_img(t_game *game, int pos_x, int pos_y)
 	cordin_y = pos_y * game->size_h;
 	mlx = game->mlx;
 	win = game->win;
-	//pos = pos_x + pos_y * game->width;
 	mlx_put_image_to_window(mlx, win, game->path, cordin_x, cordin_y);
 	if (game->map[pos_y][pos_x] == 'P')
 		mlx_put_image_to_window(mlx, win, game->player, cordin_x, cordin_y);
@@ -74,9 +68,9 @@ void	render_map(t_game *game)
 	int		pos_y;
 	char	*string;
 
-	string = ft_itoa(game->comm_count);
+	string = ft_itoa(game->move_count);
 	pos_y = 0;
-	while (pos_y < game->higth)
+	while (pos_y < game->heigth)
 	{
 		pos_x = 0;
 		while (pos_x < game->width)

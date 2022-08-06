@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_2.c                                          :+:      :+:    :+:   */
+/*   error_2_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjeon <jaemjeon@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: jaemjeon <jaemjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/08 06:55:32 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/16 17:22:57 by jaemjeon         ###   ########.fr       */
+/*   Created: 2022/07/01 21:44:46 by jaemjeon          #+#    #+#             */
+/*   Updated: 2022/07/07 15:41:46 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-void	update_count_data(t_game *game, char block, int higth, int width)
+void	update_count_data(t_game *game, char block, int heigth, int width)
 {
-	static int	enemy_count = 0;
-
 	if (block == 'C')
 		game->coin_cnt++;
 	else if (block == 'P')
 	{
 		game->cur_x = width;
-		game->cur_y = higth;
+		game->cur_y = heigth;
 		game->sp_cnt++;
 	}
 	else if (block == 'E')
 		game->exit_cnt++;
-	else if (block == 'O')
-	{
-		game->enemy[enemy_count]->cur_x = width;
-		game->enemy[enemy_count]->cur_y = higth;
-		enemy_count++;
-	}
+	else if ((block != '1') && (block != '0'))
+		ft_error();
 }
 
 int	has_same_width(int width)

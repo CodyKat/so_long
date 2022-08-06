@@ -2,17 +2,19 @@ CC = cc
 NAME = gnl.a
 CFLAGS = -Wall -Wextra -Werror
 DEFINE = -D BUFFER_SIZE=1
-LIBFT = libft.a
+LIBFT = ../libft/libft.a
 SRCS = get_next_line.c			\
 	   get_next_line_utils.c
 
 OBJS = ${SRCS:.c=.o}
 
-all : ${NAME}
+all : ${LIBFT} ${NAME}
 
 $(NAME) : ${OBJS}
-	cd ../libft; make; mv libft.a ../get_next_line;	cd ../get_next_line;	\
-		ar rsv ${NAME} ${OBJS}
+	ar rsv ${NAME} ${OBJS}
+
+${LIBFT} :
+	make -C ../libft/ all
 
 clean :
 	rm -f ${OBJS}; rm -f ${LIBFT}

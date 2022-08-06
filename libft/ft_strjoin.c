@@ -6,11 +6,12 @@
 /*   By: jaemjeon <jaemjeon@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 19:05:14 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/06 21:52:38 by jaemjeon         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:48:30 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
 

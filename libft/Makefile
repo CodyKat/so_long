@@ -10,7 +10,6 @@ SRCS = ft_strjoin.c	\
 	   ft_itoa.c
 
 OBJS = ${SRCS:.c=.o}
-OBJS_BONUS = ${SRCS_BONUS:.c=.o}
 
 OBJ_FILES = ${OBJS}
 

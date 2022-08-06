@@ -1,47 +1,66 @@
 CC = cc
-NAME = solong
-CFLAGS = -g -Wall -Wextra -Werror
-LFLAGS = -I mlx -L mlx -lmlx -framework OpenGL -framework AppKit
-GNLFT = gnl.a
-LIBFT = libft.a
-SRCS = main.c					\
-	   control.c				\
-	   enemy_control1.c			\
-	   enemy_control2.c			\
-	   error.c					\
-	   error_2.c				\
-	   get_map.c				\
-	   render.c
+NAME = so_long
+CFLAGS = -Wall -Wextra -Werror
+IFLAGS = -I mlx
+LFLAGS = -L mlx -lmlx -framework OpenGL -framework AppKit
+GNLFT = ./get_next_line/gnl.a
+LIBFT = ./libft/libft.a
+MLX_LIB = ./mlx/libmlx.a
+SRCS = main_bonus.c					\
+	   control_bonus.c				\
+	   enemy_control1_bonus.c		\
+	   enemy_control2_bonus.c		\
+	   error_bonus.c				\
+	   error_2_bonus.c				\
+	   get_map_bonus.c				\
+	   render_bonus.c
 
 OBJS = ${SRCS:.c=.o}
 
+%.o:%.c
+	$(CC) $(IFLAGS) $(CFLAGS) -o $@ -c $<
+
 all : ${NAME}
 
-$(NAME) : ${OBJS}
-	cd get_next_line; make; cp ${GNLFT} ${LIBFT} ../; cd ../;		\
-	${CC} ${CFLAG} -o ${NAME} ${OBJS} ${LFLAGS} ${GNLFT} ${LIBFT}
+$(NAME) : ${LIBFT} $(GNLFT) ${OBJS} ${MLX_LIB}
+	${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LFLAGS} ${GNLFT} ${LIBFT}
+
+bonus : all
+
+$(LIBFT) :
+	make -C ./libft/ all
+
+$(GNLFT) :
+	make -C ./get_next_line/ all
+
+$(MLX_LIB) :
+	make -C ./mlx/ all
+
+mlx_compile :
+	make -C ./mlx/ all
 
 clean_gnl :
-	cd get_next_line; make clean
+	make -C ./get_next_line/ clean
 
 clean_libft :
-	cd libft; make clean
+	make -C ./libft/ clean
 
-clean : fclean_gnl clean_libft
-	rm -f ${OBJS}; rm -f ${LIBFT} ${GNLFT}
+clean_mlx :
+	make -C ./mlx/ clean
+
+clean : fclean_gnl fclean_libft clean_mlx
+	rm -f ${OBJS}
+
 
 
 fclean_gnl :
-	cd get_next_line; make fclean
+	make -C ./get_next_line/ fclean
 
 fclean_libft :
-	cd libft; make fclean
+	make -C ./libft/ fclean
 
-fclean : clean clean_gnl clean_libft fclean_gnl fclean_libft
+fclean : clean
 	rm -f ${NAME}
-
-bonus :
-	make all
 
 .PHONY : all clean fclean bonus re
 

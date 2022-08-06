@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_control1.c                                   :+:      :+:    :+:   */
+/*   enemy_control1_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjeon <jaemjeon@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: jaemjeon <jaemjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/15 23:13:56 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/16 11:36:36 by jaemjeon         ###   ########.fr       */
+/*   Created: 2022/07/01 21:44:16 by jaemjeon          #+#    #+#             */
+/*   Updated: 2022/07/07 14:46:37 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <stdio.h>
-
-void	render_map(t_game *game);
-int		enemy_check_can_go(int enemy_num, int way, t_game *game);
-void	enemy_move1(int enemy_num, int way, t_game *game);
-void	enemy_move2(int enemy_num, int way, t_game *game);
+#include "so_long_bonus.h"
 
 void	enemy_check_and_go(int enemy_num, int way, t_game *game)
 {
@@ -51,7 +45,7 @@ int	control_enemy(t_game *game)
 	frame = (frame + 1) % (TOTAL_FRAME * speed_reduce);
 	if (frame == TOTAL_FRAME * speed_reduce - 1)
 		move_inverse_speed++;
-	if (move_inverse_speed == 4)
+	if (move_inverse_speed == 1)
 	{
 		move_inverse_speed = 0;
 		enemy_count = -1;
@@ -59,7 +53,7 @@ int	control_enemy(t_game *game)
 		{
 			enemy_way = rand() % 5;
 			if (enemy_way == 3)
-				enemy_way += 10;
+				enemy_way = KEY_W;
 			enemy_check_and_go(enemy_count, enemy_way, game);
 		}
 	}

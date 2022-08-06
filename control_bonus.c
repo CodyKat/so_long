@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control.c                                          :+:      :+:    :+:   */
+/*   control_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjeon <jaemjeon@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: jaemjeon <jaemjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 01:33:17 by jaemjeon          #+#    #+#             */
-/*   Updated: 2022/05/17 06:35:37 by jaemjeon         ###   ########.fr       */
+/*   Created: 2022/07/01 21:44:02 by jaemjeon          #+#    #+#             */
+/*   Updated: 2022/07/07 14:39:12 by jaemjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <stdio.h>
-#include <mlx.h>
+#include "so_long_bonus.h"
 
-void	render_map(t_game *game);
-char	*ft_itoa(int c);
-void	ft_error(void);
-
-int	swap(char *a, char *b, t_game *game)
+int	swap_and_process(char *a, char *b, t_game *game)
 {
 	char	tmp;
 	char	*string;
@@ -35,7 +29,7 @@ int	swap(char *a, char *b, t_game *game)
 		*a = '0';
 		game->coin_cnt--;
 	}
-	string = ft_itoa(game->comm_count);
+	string = ft_itoa(game->move_count);
 	if (string == 0)
 		ft_error();
 	mlx_string_put(game->mlx, game->win, 15, 15, 0xff66ff33, string);
@@ -52,17 +46,19 @@ void	move1(int way, t_game *game)
 	cur_y = game->cur_y;
 	if (way == KEY_A)
 	{
-		if (!swap(&game->map[cur_y][cur_x], &game->map[cur_y][cur_x - 1], game))
+		if (!swap_and_process(&game->map[cur_y][cur_x], \
+				&game->map[cur_y][cur_x - 1], game))
 			return ;
 		game->cur_x--;
 	}
 	else if (way == KEY_S)
 	{
-		if (!swap(&game->map[cur_y][cur_x], &game->map[cur_y + 1][cur_x], game))
+		if (!swap_and_process(&game->map[cur_y][cur_x], \
+				&game->map[cur_y + 1][cur_x], game))
 			return ;
 		game->cur_y++;
 	}
-	game->comm_count++;
+	game->move_count++;
 }
 
 void	move2(int way, t_game *game)
@@ -74,17 +70,19 @@ void	move2(int way, t_game *game)
 	cur_y = game->cur_y;
 	if (way == KEY_D)
 	{
-		if (!swap(&game->map[cur_y][cur_x], &game->map[cur_y][cur_x + 1], game))
+		if (!swap_and_process(&game->map[cur_y][cur_x], \
+				&game->map[cur_y][cur_x + 1], game))
 			return ;
 		game->cur_x++;
 	}
 	else if (way == KEY_W)
 	{
-		if (!swap(&game->map[cur_y][cur_x], &game->map[cur_y - 1][cur_x], game))
+		if (!swap_and_process(&game->map[cur_y][cur_x], \
+				&game->map[cur_y - 1][cur_x], game))
 			return ;
 		game->cur_y--;
 	}
-	game->comm_count++;
+	game->move_count++;
 }
 
 int	check_can_go(int way, t_game *game)
